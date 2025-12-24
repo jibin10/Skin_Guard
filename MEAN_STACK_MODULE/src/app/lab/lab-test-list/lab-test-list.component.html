@@ -1,0 +1,75 @@
+<h3>Laboratory</h3>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<mat-accordion *ngIf="patient_records.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let record of patient_records; index as i;" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ i+1 +". " }} {{ "Name #: " + record.name }}
+      </mat-panel-title>
+      <mat-panel-description *ngIf="!panelOpenState">
+        {{ "Phone: " + record.phone }} {{ ", Email: " + record.email }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <table id="my-table">
+      <tr>
+        <td colspan="2">{{ "Name: " + record.name }}</td>
+        <td> {{ "Phone: " + record.phone }}</td>
+        <td>{{ "Email: " + record.email }}</td>
+      </tr>
+      <tr>
+        <td width="100%" colspan="4">
+          <p class=".margin"><b>Add Lab Results</b></p>
+          <table mat-table [dataSource]="record.adv_test" class="mat-elevation-z1">
+
+            <ng-container matColumnDef="TestDate">
+              <th mat-header-cell *matHeaderCellDef> TestDate </th>
+              <td mat-cell *matCellDef="let element"> {{element.test_date | date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Details">
+              <th mat-header-cell *matHeaderCellDef> Details </th>
+              <td mat-cell *matCellDef="let element"> {{element.details}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="imagePath">
+              <th mat-header-cell *matHeaderCellDef> Image </th>
+              <td mat-cell *matCellDef="let element">  <a href="{{element.imagePath}}" target="_blank"><img src="{{element.imagePath}}" width="30px" /></a> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="LabResult">
+              <th mat-header-cell *matHeaderCellDef> Lab Result </th>
+              <td mat-cell *matCellDef="let element">
+                <p *ngIf="element.LabResult != null && element.LabResult >= 0.50">Malignant</p>
+                <p *ngIf="element.LabResult != null && element.LabResult < 0.50">Benign</p>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Update">
+              <th mat-header-cell *matHeaderCellDef> Update </th>
+              <td mat-cell *matCellDef="let element">
+                <a mat-button color="primary" [routerLink]="['/lab/edit_result', element._id]" >Edit</a>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="adv_test_Columns"></tr>
+            <tr mat-row *matRowDef="let row; columns: adv_test_Columns;"></tr>
+          </table>
+
+        </td>
+      </tr>
+    </table>
+
+    <mat-action-row *ngIf="userIsAuthenticated">
+
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator
+[length]="totalRecords"
+[pageSize]="prPerPage"
+[pageSizeOptions]="pageSizeOptions"
+(page)="onChangedPage($event)"
+*ngIf="patient_records.length > 0">
+</mat-paginator>
+<p class="info-text mat-body-1" *ngIf="patient_records.length <= 0 && !isLoading">No quotes added yet!</p>

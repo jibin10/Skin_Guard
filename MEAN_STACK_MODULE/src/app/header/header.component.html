@@ -1,0 +1,48 @@
+<mat-toolbar color="light">
+  <img class="img-responsive" src="assets/images/logo-sg-hz.png">
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="userIsAuthenticated">
+      <button mat-button routerLink="" routerLinkActive="mat-primary">Home</button>
+    </li>
+
+    <li *ngIf="userIsAuthenticated && (role == 'Admin' || role == 'Doctor')">
+      <button mat-button routerLink="/inspect/list" routerLinkActive="mat-primary">SkinGuard</button>
+    </li>
+
+    <li *ngIf="userIsAuthenticated &&  (role == 'Admin' || role == 'Patient')">
+      <button mat-button routerLink="/user/patient" routerLinkActive="mat-primary">Patients</button>
+    </li>
+
+    <li *ngIf="userIsAuthenticated && (role == 'Admin' || role == 'Doctor')">
+      <button mat-button routerLink="/user/doctor" routerLinkActive="mat-primary">Doctors</button>
+    </li>
+
+    <li *ngIf="userIsAuthenticated && (role == 'Admin' || role == 'Lab Technician')">
+      <button mat-button routerLink="/lab/list" routerLinkActive="mat-primary">Lab</button>
+    </li>
+
+    <li *ngIf="userIsAuthenticated &&  (role == 'Admin' || role == 'Doctor')">
+      <button mat-button routerLink="/performance/list" routerLinkActive="mat-primary">Models</button>
+    </li>
+
+    <li *ngIf="userIsAuthenticated &&  (role == 'Admin')">
+      <button mat-button [matMenuTriggerFor]="settings" routerLinkActive="mat-primary">Settings</button>
+      <mat-menu #settings="matMenu">
+        <button mat-menu-item routerLink="/user/list" routerLinkActive="mat-accent">Users</button>
+      </mat-menu>
+    </li>
+
+    <li *ngIf="!userIsAuthenticated">
+      <button mat-button routerLink="/auth/login" routerLinkActive="mat-primary">Login</button>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <button mat-button routerLink="/auth/signup" routerLinkActive="mat-primary">Sign Up</button>
+    </li>
+
+    <li *ngIf="userIsAuthenticated">
+      <button mat-button (click)="onLogout()">Logout</button>
+    </li>
+  </ul>
+</mat-toolbar>
+<div class="user-info" *ngIf="userIsAuthenticated"> User: {{ this.name }}, Role: {{ this.role }} </div>

@@ -1,0 +1,31 @@
+<button mat-raised-button routerLink="/consultation/archives" color="primary" *ngIf="!isLoading && (role == 'Admin' || role =='Doctor')">Archives</button>
+<h3>New Consultation</h3>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="(appointmentData.length > 0 && !isLoading)">
+  <mat-accordion *ngFor="let appointment of appointmentData; index as i">
+    <mat-expansion-panel *ngIf="(role == 'Admin' || userId == appointment.doctor)">
+      <mat-expansion-panel-header>
+      {{ i+1 +". " }} {{ appointment.appointment_date | date:'fullDate' }}
+      </mat-expansion-panel-header>
+      <p>Name: {{ appointment.user_details[0].name }}</p>
+      <p>Time: {{ appointment.appointment_time }}</p>
+      <p>Doctor: {{ appointment.doctor_details[0].name }}</p>
+      <p>Condition: {{ appointment.condition }}</p>
+
+      <mat-action-row *ngIf="userIsAuthenticated">
+        <a mat-button color="primary" [routerLink]="['/inspect/quick', appointment.patient_id, appointment.id]" >Quick Test</a>
+        <a mat-button color="primary" [routerLink]="['/inspect/advanced', appointment.patient_id, appointment.id]" >Advanced Test</a>
+        <a mat-button color="primary" [routerLink]="['/prescription/create', appointment.id, appointment.patient_id]">Prescription</a>
+        <a mat-button color="primary" [routerLink]="['/patient_record', appointment.patient_id]">Patient Record</a>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<mat-paginator
+[length]="totalAppointments"
+[pageSize]="appointmentsPerPage"
+[pageSizeOptions]="pageSizeOptions"
+(page)="onChangedPage($event)"
+*ngIf="appointmentData?.length > 0">
+</mat-paginator>
+<p class="info-text mat-body-1" *ngIf="appointmentData?.length <= 0 && !isLoading">No open bookings!</p>

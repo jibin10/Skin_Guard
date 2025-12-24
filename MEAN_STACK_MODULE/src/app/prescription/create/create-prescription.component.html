@@ -1,0 +1,31 @@
+<h3>Prescription</h3>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="appForm" (submit)="onSubmit()" *ngIf="!isLoading">
+
+    <mat-form-field>
+      <textarea
+      matInput
+      rows="6"
+      formControlName="prescription"
+      placeholder="Prescription"></textarea>
+      <mat-error *ngIf="appForm.get('prescription').invalid">Please add the doctor's prescription</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+      matInput
+      rows="6"
+      formControlName="tests"
+      placeholder="Tests"></textarea>
+      <mat-error *ngIf="appForm.get('tests').invalid">Please describe the required lab tests</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      *ngIf="!isLoading">Add Prescription</button>
+  </form>
+</mat-card>
+<div class="spacer">&nbsp;</div>

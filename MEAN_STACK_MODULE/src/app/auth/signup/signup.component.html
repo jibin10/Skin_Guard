@@ -1,0 +1,51 @@
+<h3>Sign Up</h3>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <mat-card-subtitle><b>Please fill the registration form</b></mat-card-subtitle>
+  <form [formGroup]="signupForm" (submit)="onSignup()" *ngIf="!isLoading">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" type="text" formControlName="name" required minlength="3">
+      <mat-error *ngIf="signupForm.get('name').invalid">Please enter a valid name</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Role</mat-label>
+      <mat-select matInput formControlName="role" required>
+        <mat-option value="Patient">Patient</mat-option>
+        <mat-option value="Other">Other</mat-option>
+      </mat-select>
+      <mat-error *ngIf="signupForm.get('role').invalid">Please select role</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Phone</mat-label>
+      <input matInput placeholder="Phone" type="text" formControlName="phone" required >
+      <mat-error *ngIf="signupForm.get('phone').invalid">Please enter a valid phone</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" type="text" formControlName="email" required email>
+      <mat-error *ngIf="signupForm.get('email').invalid">Please enter a valid email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="Password" type="password" formControlName="password" required>
+      <mat-error *ngIf="signupForm.get('password').invalid">Please enter a valid password</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Confirm Password</mat-label>
+      <input matInput placeholder="Confirm Password" type="password" formControlName="confirm_password" required>
+      <mat-error *ngIf="signupForm.get('confirm_password').invalid">Password not matching</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      *ngIf="!isLoading">Sign Up</button>
+  </form>
+</mat-card>

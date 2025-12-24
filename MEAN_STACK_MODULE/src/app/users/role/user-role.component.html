@@ -1,0 +1,36 @@
+<h3>User Update</h3>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <mat-card-subtitle><b>Please update the user</b></mat-card-subtitle>
+  <form [formGroup]="form" (submit)="onUpdateUserRole()" *ngIf="!isLoading">
+
+    <mat-form-field>
+      <input
+      type="text"
+      matInput
+      placeholder="Enter the user's name" formControlName="name">
+      <mat-error *ngIf="form.get('name').invalid">Please enter the name</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Role</mat-label>
+      <mat-select matInput formControlName="role" required>
+        <mat-option value="NotAssigned">Not Assigned</mat-option>
+        <mat-option value="Patient">Patient</mat-option>
+        <mat-option value="Lab Technician">Lab Technician</mat-option>
+        <mat-option value="Doctor">Doctor</mat-option>
+        <mat-option value="Admin">Admin</mat-option>
+        <mat-option value="Other">Other</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('role').invalid">Please select role</mat-error>
+    </mat-form-field>
+
+    <div class="submit">
+      <button
+      mat-raised-button
+      color="primary"
+      type="submit">Update Status</button>
+    </div>
+  </form>
+
+</mat-card>

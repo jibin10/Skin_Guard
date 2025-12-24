@@ -1,0 +1,63 @@
+<h3>Performance of Models</h3>
+<p>We are consideing the lab results as the actual result for the performance calculation.</p>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion *ngIf="!isLoading">
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ "Total Tests: " }} {{ totalTests }}
+      </mat-panel-title>
+      <mat-panel-description *ngIf="!panelOpenState">
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <table id="my-table" style="text-align: left;">
+      <tr>
+        <th>{{ "Model" }}</th>
+        <th> {{ "Precision" }}</th>
+        <th>{{ "Recall" }}</th>
+        <th> {{ "Accuracy" }}</th>
+      </tr>
+      <tr>
+        <td>{{ "EfficientNetB7" }}</td>
+        <td> {{ effB7TP / (effB7TP + effB7FP) }}</td>
+        <td>{{ effB7TP / (effB7TP + effB7FN) }}</td>
+        <td> {{ (effB7TP + effB7TN) / (effB7TP + effB7FP + effB7TN + effB7FN) }}</td>
+      </tr>
+      <tr>
+        <td>{{ "VGG19" }}</td>
+        <td> {{ vggTP / (vggTP + vggFP) }}</td>
+        <td>{{ vggTP / (vggTP + vggFN) }}</td>
+        <td> {{ (vggTP + vggTN) / (vggTP + vggFP + vggTN + vggFN) }}</td>
+      </tr>
+      <tr>
+        <td>{{ "Inceptionv3" }}</td>
+        <td> {{ incepTP / (incepTP + incepFP) }}</td>
+        <td>{{ incepTP / (incepTP + incepFN) }}</td>
+        <td> {{ (incepTP + incepTN) / (incepTP + incepFP + incepTN + incepFN) }}</td>
+      </tr>
+      <tr>
+        <td>{{ "Xception" }}</td>
+        <td> {{ xcepTP / (xcepTP + xcepFP) }}</td>
+        <td>{{ xcepTP / (xcepTP + xcepFN) }}</td>
+        <td> {{ (xcepTP + xcepTN) / (xcepTP + xcepFP + xcepTN + xcepFN) }}</td>
+      </tr>
+      <tr>
+        <td>{{ "ResNet50" }}</td>
+        <td> {{ resnetTP / (resnetTP + resnetFP) }}</td>
+        <td>{{ resnetTP / (resnetTP + resnetFN) }}</td>
+        <td> {{ (resnetTP + resnetTN) / (resnetTP + resnetFP + resnetTN + resnetFN) }}</td>
+      </tr>
+      <tr>
+        <td>{{ "MobileNetV3" }}</td>
+        <td> {{ mobiTP / (mobiTP + mobiFP) }}</td>
+        <td>{{ mobiTP / (mobiTP + mobiFN) }}</td>
+        <td> {{ (mobiTP + mobiTN) / (mobiTP + mobiFP + mobiTN + mobiFN) }}</td>
+      </tr>
+
+    </table>
+
+    <mat-action-row *ngIf="userIsAuthenticated">
+
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

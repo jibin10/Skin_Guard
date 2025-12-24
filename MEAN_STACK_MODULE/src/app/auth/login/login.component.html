@@ -1,0 +1,20 @@
+<h3 class="content"><span>Login</span></h3>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="loginForm" (submit) = "onLogin()" *ngIf="!isLoading">
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" type="text" formControlName="email" required email>
+      <mat-error *ngIf="loginForm.get('email').invalid">Please enter a valid email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="Password" type="password" formControlName="password" required>
+      <mat-error *ngIf="loginForm.get('password').invalid">Please enter a valid password</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" *ngIf="!isLoading">Login</button>
+
+  </form>
+</mat-card>

@@ -1,0 +1,174 @@
+<h3>Patient Records</h3>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<button mat-raised-button routerLink="/consultation/list" color="primary" *ngIf="!isLoading">Consultation</button>
+<mat-accordion *ngIf="patient_records.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let record of patient_records; index as i;" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ i+1 +". " }} {{ "Name #: " + record.name }}
+      </mat-panel-title>
+      <mat-panel-description *ngIf="!panelOpenState">
+        {{ "Phone: " + record.phone }} {{ ", Email: " + record.email }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <table id="my-table">
+      <tr>
+        <td colspan="2">{{ "Name: " + record.name }}</td>
+        <td> {{ "Phone: " + record.phone }}</td>
+        <td>{{ "Email: " + record.email }}</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <span><b>Quick Test Results</b></span>
+          <table mat-table [dataSource]="record.quick_test" class="mat-elevation-z1">
+            <ng-container matColumnDef="TestDate">
+              <th mat-header-cell *matHeaderCellDef> TestDate </th>
+              <td mat-cell *matCellDef="let element"> {{element.test_date | date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Details">
+              <th mat-header-cell *matHeaderCellDef> Details </th>
+              <td mat-cell *matCellDef="let element"> {{element.details}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Custom_Model">
+              <th mat-header-cell *matHeaderCellDef> CCNN Model </th>
+              <td mat-cell *matCellDef="let element">
+                <p *ngIf="element.test_result >= 0.50">Malignant ({{ element.test_result.toFixed(2) }})</p>
+                <p *ngIf="element.test_result < 0.50">Benign ({{ (1 - element.test_result).toFixed(2) }})</p>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="imagePath">
+              <th mat-header-cell *matHeaderCellDef> Image </th>
+              <td mat-cell *matCellDef="let element">  <a href="{{element.imagePath}}" target="_blank"><img src="{{element.imagePath}}" width="30px" /></a> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="quick_test_Columns"></tr>
+            <tr mat-row *matRowDef="let row; columns: quick_test_Columns;"></tr>
+          </table>
+
+        </td>
+        <td colspan="2">
+
+          <span><b>Lab Results</b></span>
+          <table mat-table [dataSource]="record.adv_test" class="mat-elevation-z1">
+
+            <ng-container matColumnDef="TestDate">
+              <th mat-header-cell *matHeaderCellDef> TestDate </th>
+              <td mat-cell *matCellDef="let element"> {{element.test_date | date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Details">
+              <th mat-header-cell *matHeaderCellDef> Details </th>
+              <td mat-cell *matCellDef="let element"> {{element.details}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="LabResult">
+              <th mat-header-cell *matHeaderCellDef> Lab Result </th>
+              <td mat-cell *matCellDef="let element">
+                <p *ngIf="element.LabResult != null && element.LabResult >= 0.50">Malignant</p>
+                <p *ngIf="element.LabResult != null && element.LabResult < 0.50">Benign</p>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="imagePath">
+              <th mat-header-cell *matHeaderCellDef> Image </th>
+              <td mat-cell *matCellDef="let element">  <a href="{{element.imagePath}}" target="_blank"><img src="{{element.imagePath}}" width="30px" /></a> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="lab_Columns"></tr>
+            <tr mat-row *matRowDef="let row; columns: lab_Columns;"></tr>
+          </table>
+
+        </td>
+      </tr>
+      <tr>
+        <td width="100%" colspan="4">
+          <span><b>Advanced Test Results</b></span>
+          <table mat-table [dataSource]="record.adv_test" class="mat-elevation-z1">
+
+            <ng-container matColumnDef="TestDate">
+              <th mat-header-cell *matHeaderCellDef> TestDate </th>
+              <td mat-cell *matCellDef="let element"> {{element.test_date | date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Details">
+              <th mat-header-cell *matHeaderCellDef> Details </th>
+              <td mat-cell *matCellDef="let element"> {{element.details}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="EfficientNetB7">
+              <th mat-header-cell *matHeaderCellDef> EfficientNetB7 </th>
+              <td mat-cell *matCellDef="let element">
+                <p *ngIf="element.EfficientNetB7 >= 0.50">Malignant ({{ element.EfficientNetB7.toFixed(2) }})</p>
+                <p *ngIf="element.EfficientNetB7 < 0.50">Benign ({{ (1 - element.EfficientNetB7).toFixed(2) }})</p>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="VGG19">
+              <th mat-header-cell *matHeaderCellDef> VGG19 </th>
+              <td mat-cell *matCellDef="let element">
+                <p *ngIf="element.VGG19 >= 0.50">Malignant ({{ element.VGG19.toFixed(2) }})</p>
+                <p *ngIf="element.VGG19 < 0.50">Benign ({{ (1 - element.VGG19).toFixed(2) }})</p>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Inceptionv3">
+              <th mat-header-cell *matHeaderCellDef> Inceptionv3 </th>
+              <td mat-cell *matCellDef="let element">
+                <p *ngIf="element.Inceptionv3 >= 0.50">Malignant ({{ element.Inceptionv3.toFixed(2) }})</p>
+                <p *ngIf="element.Inceptionv3 < 0.50">Benign ({{ (1 - element.Inceptionv3).toFixed(2) }})</p>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Xception">
+              <th mat-header-cell *matHeaderCellDef> Xception </th>
+              <td mat-cell *matCellDef="let element">
+                <p *ngIf="element.Xception >= 0.50">Malignant ({{ element.Xception.toFixed(2) }})</p>
+                <p *ngIf="element.Xception < 0.50">Benign ({{ (1 - element.Xception).toFixed(2) }})</p>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ResNet50">
+              <th mat-header-cell *matHeaderCellDef> ResNet50 </th>
+              <td mat-cell *matCellDef="let element">
+                <p *ngIf="element.ResNet50 >= 0.50">Malignant ({{ element.ResNet50.toFixed(2) }})</p>
+                <p *ngIf="element.ResNet50 < 0.50">Benign ({{ (1 - element.ResNet50).toFixed(2) }})</p>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="MobileNetV3">
+              <th mat-header-cell *matHeaderCellDef> MobileNetV3 </th>
+              <td mat-cell *matCellDef="let element">
+                <p *ngIf="element.MobileNetV3 >= 0.50">Malignant ({{ element.MobileNetV3.toFixed(2) }})</p>
+                <p *ngIf="element.MobileNetV3 < 0.50">Benign ({{ (1 - element.MobileNetV3).toFixed(2) }})</p>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="imagePath">
+              <th mat-header-cell *matHeaderCellDef> Image </th>
+              <td mat-cell *matCellDef="let element">  <a href="{{element.imagePath}}" target="_blank"><img src="{{element.imagePath}}" width="30px" /></a> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="adv_test_Columns"></tr>
+            <tr mat-row *matRowDef="let row; columns: adv_test_Columns;"></tr>
+          </table>
+
+        </td>
+      </tr>
+    </table>
+
+    <mat-action-row *ngIf="userIsAuthenticated">
+
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator
+[length]="totalRecords"
+[pageSize]="prPerPage"
+[pageSizeOptions]="pageSizeOptions"
+(page)="onChangedPage($event)"
+*ngIf="patient_records.length > 0">
+</mat-paginator>
+<p class="info-text mat-body-1" *ngIf="patient_records.length <= 0 && !isLoading">No quotes added yet!</p>

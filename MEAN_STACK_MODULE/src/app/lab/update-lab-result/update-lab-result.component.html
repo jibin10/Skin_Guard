@@ -1,0 +1,24 @@
+<h3>Update Lab Result</h3>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <mat-card-subtitle><b>Please update the results</b></mat-card-subtitle>
+  <form [formGroup]="form" (submit)="onUpdateLabResult()" *ngIf="!isLoading">
+
+    <mat-form-field>
+      <mat-label>Lab Result</mat-label>
+      <mat-select matInput formControlName="lab_result" required>
+        <mat-option value="0">Benign</mat-option>
+        <mat-option value="1">Malignant</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('lab_result').invalid">Please select a result</mat-error>
+    </mat-form-field>
+
+    <div class="submit">
+      <button
+      mat-raised-button
+      color="primary"
+      type="submit">Update Result</button>
+    </div>
+  </form>
+
+</mat-card>

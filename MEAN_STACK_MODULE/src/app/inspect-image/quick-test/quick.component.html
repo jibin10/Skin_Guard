@@ -1,0 +1,30 @@
+<h2>Quick Test</h2>
+<h3>Upload Skin Mole Image</h3>
+<p>224x224 jpg image with mole in the center is recommended.</p>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSaveDetails()" *ngIf="!isLoading">
+
+    <mat-form-field>
+      <textarea
+      matInput
+      rows="6"
+      formControlName="details"
+      placeholder="Details"></textarea>
+      <mat-error *ngIf="form.get('details').invalid">Please enter the details</mat-error>
+    </mat-form-field>
+
+    <div>
+      <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Skin Image</button>
+      <input type="file" #filePicker (change)="onImagePicked($event)">
+    </div>
+    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+      <img [src]="imagePreview" [alt]="form.value.patient" >
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit">Inspect</button>
+  </form>
+</mat-card>

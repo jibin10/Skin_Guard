@@ -1,0 +1,49 @@
+<h3>Book Appointment</h3>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="appForm" (submit)="onUserSubmit()" *ngIf="!isLoading">
+
+    <mat-form-field>
+      <mat-label>Appointment Date</mat-label>
+      <input matInput [matDatepicker]="app_date" formControlName="app_date">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="app_date"></mat-datepicker-toggle>
+      <mat-datepicker #app_date></mat-datepicker>
+      <mat-error *ngIf="appForm.get('app_date').invalid">Please choose date</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Appointment Time</mat-label>
+      <mat-select matInput formControlName="app_time" required>
+        <mat-option value="9AM - 10AM">9AM - 10AM</mat-option>
+        <mat-option value="10AM - 11AM">10AM - 11AM</mat-option>
+        <mat-option value="11AM - 12PM">11AM - 12PM</mat-option>
+      </mat-select>
+      <mat-error *ngIf="appForm.get('app_time').invalid">Please select time</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Select Doctor</mat-label>
+      <mat-select matInput formControlName="doctor" name="doctor" id="doctor" required>
+        <mat-option *ngFor="let val of doctorData" value={{val._id}}>{{val.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="appForm.get('doctor').invalid">Please select a doctor</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+      matInput
+      rows="6"
+      formControlName="condition"
+      placeholder="Current Condition"></textarea>
+      <mat-error *ngIf="appForm.get('condition').invalid">Please describe your condition</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      *ngIf="!isLoading">Book Now</button>
+  </form>
+</mat-card>
+<div class="spacer">&nbsp;</div>

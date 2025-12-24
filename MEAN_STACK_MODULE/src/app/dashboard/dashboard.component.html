@@ -1,0 +1,75 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <mat-grid-list *ngIf="role == 'Admin'" cols="3" rowHeight="2:1"  gutterSize="2rem">
+    <mat-grid-tile>
+      <a mat-flat-button href="/inspect/process">Quick Test</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/appointment/list">Appointments</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/consultation/list">Consultation</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/patient_record/list">Patient Records</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/consultation/archives">Archives</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/performance/list">Model Performance</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/user/patient">Patients</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/user/doctor">Doctors</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/lab/list">Lab</a>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list *ngIf="role == 'Doctor'" cols="3" rowHeight="2:1"  gutterSize="2rem">
+    <mat-grid-tile>
+      <a mat-flat-button href="/consultation/list">Consultation</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/inspect/process">Quick Test</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/patient_record/list">Patient Records</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/consultation/archives">Archives</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/performance/list">Model Performance</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button (click)="onLogout()">Logout</a>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list *ngIf="role == 'Lab Technician'" cols="3" rowHeight="2:1"  gutterSize="2rem">
+    <mat-grid-tile>
+      <a mat-flat-button href="/lab/list">Lab</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button (click)="onLogout()">Logout</a>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list *ngIf="role == 'Patient'" cols="3" rowHeight="2:1"  gutterSize="2rem">
+    <mat-grid-tile>
+      <a mat-flat-button href="/appointment/create">New Appointment</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button href="/appointment/list">View Appointments</a>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <a mat-flat-button (click)="onLogout()">Logout</a>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</mat-card>
