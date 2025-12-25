@@ -99,19 +99,19 @@ The folder below contains the JSON version of the custom CNN model: MEAN_STACK_M
 
 ### Create Images Folder
 
-Inside `FAST_API_MODULE`, create the following folder: 
+Create the following folders: 
 - FAST_API_MODULE/images/
 - MEAN_STACK_MODULE/backend/patient_images
 
-This folder is used to store uploaded patient images.
+These folder is used to store uploaded images.
 
 ---
 
 ### Add Test Images
 
 For testing, add a few unseen images to:
-FAST_API_MODULE/skin_images/test/malignant/
-FAST_API_MODULE/skin_images/test/benign/
+- FAST_API_MODULE/skin_images/test/malignant/
+- FAST_API_MODULE/skin_images/test/benign/
 
 
 These images can be used to validate predictions via the API.
