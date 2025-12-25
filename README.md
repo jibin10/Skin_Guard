@@ -53,6 +53,13 @@ Follow the official FastAPI documentation to set up and run the API: https://fas
 
 ---
 
+### Database Connection (Node.js Backend)
+
+The MongoDB connection is configured in the Node.js backend (`app.js`) using **Mongoose**.  
+The password is read from an environment variable (`MONGO_ATLAS_PW`) for security.
+
+---
+
 ## Model Training Steps
 
 ### Download the Dataset
@@ -92,8 +99,9 @@ The folder below contains the JSON version of the custom CNN model: MEAN_STACK_M
 
 ### Create Images Folder
 
-Inside `FAST_API_MODULE`, create the following folder: FAST_API_MODULE/images/
-
+Inside `FAST_API_MODULE`, create the following folder: 
+- FAST_API_MODULE/images/
+- MEAN_STACK_MODULE/backend/patient_images
 
 This folder is used to store uploaded patient images.
 
