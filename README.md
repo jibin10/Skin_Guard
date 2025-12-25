@@ -1,85 +1,156 @@
 # SkinGuard – Skin Lesion Classification System
-SkinGuard is an end-to-end machine learning project for classifying skin lesions as benign or malignant using deep learning.
-The system includes model training, API-based inference, and a web dashboard for uploading images and viewing results.
 
-This project was developed as part of my final project (University of London, 2023) and is intended for educational and research purposes only.
+SkinGuard is an end-to-end machine learning project for classifying skin lesions as **benign** or **malignant** using deep learning.  
+The system includes **model training**, **API-based inference**, and a **web dashboard** for uploading images and viewing results.
 
-Disclaimer: This project is not a medical device and should not be used for clinical diagnosis.
+This project was developed as part of my **Project (University of London, 2023)** and is intended for **educational and research purposes only**.
 
-### Project Overview
+---
+
+##  Project Overview
 
 The application consists of:
 
-A MEAN stack web application (Angular + Node.js + MongoDB)
-A FastAPI service for model inference
-Multiple fine-tuned CNN models (ResNet, MobileNet, EfficientNet, Custom CNN)
-A dashboard to visualize predictions and stored results
+- A **MEAN stack web application** (Angular + Node.js + MongoDB)
+- A **FastAPI service** for model inference
+- **Multiple fine-tuned CNN models**, including:
+  - EfficientNetB7
+  - Inceptionv3
+  - MobileNetV3
+  - ResNet50
+  - VGG19
+  - Xception
+  - Custom CNN
+- A **dashboard** to visualize predictions and stored results
+- Other User Modules
 
-### How to Run the Application
+---
 
-#### MEAN Stack Module
+##  How to Run the Application
 
-The MEAN_STACK_MODULE folder contains:
+### MEAN Stack Module
 
-Angular frontend
-Node.js backend
+The `MEAN_STACK_MODULE` folder contains:
 
-Install dependencies:
-All required dependencies are listed in MEAN_STACK_MODULE/package.json.
-Start the backend and frontend as per your local setup.
+- Angular frontend
+- Node.js backend
 
-#### FastAPI Module
+#### Install Dependencies
 
-Follow the official FastAPI guide for setup:
-https://fastapi.tiangolo.com/tutorial/first-steps/
+All required dependencies are listed in: MEAN_STACK_MODULE/package.json
 
 
-### Model Training Steps
-#### Download the Dataset
+Install the dependencies and start the backend and frontend as per your local setup.
 
-Download the skin lesion dataset (ISIC/Kaggle or equivalent).
-Organize it into benign and malignant folders.
+---
 
-#### Train and Fine-Tune Models
+### FastAPI Module
 
-Run the notebooks provided in the Notebooks/ folder.
-Fine-tune the models using transfer learning.
+The `FAST_API_MODULE` folder contains the FastAPI backend used for model inference.
 
-#### Add Models to FastAPI
+Follow the official FastAPI documentation to set up and run the API: https://fastapi.tiangolo.com/tutorial/first-steps/
 
-Download or save all fine-tuned models.
-Copy them into: FAST_API_MODULE/models/
 
-Custom CNN Model (JSON)
-The folder: MEAN_STACK_MODULE/backend/ml_models/sg_model_1/
-contains the JSON version of the custom CNN model.
-This model file will be made available on request.
+---
 
-### Image Storage Setup
+## Model Training Steps
 
-#### Create Images Folder
+### Download the Dataset
 
-Inside FAST_API_MODULE, create a folder: FAST_API_MODULE/images/
-This is used to store uploaded patient images.
+- Download a skin lesion dataset (ISIC / Kaggle or equivalent)
+- Organize the dataset into:
+  - `benign`
+  - `malignant` folders
 
-#### Add Test Images
+---
+
+### Train and Fine-Tune Models
+
+- Run the notebooks provided in the `Notebooks/` folder
+- Fine-tune the models using transfer learning
+
+---
+
+### Add Models to FastAPI
+
+- Save or download all fine-tuned models
+- Copy the model files into: FAST_API_MODULE/models/
+
+
+---
+
+### Custom CNN Model (JSON)
+
+The folder below contains the JSON version of the custom CNN model: MEAN_STACK_MODULE/backend/ml_models/sg_model_1/
+
+
+> This model file will be **made available on request**.
+
+---
+
+##  Image Storage Setup
+
+### Create Images Folder
+
+Inside `FAST_API_MODULE`, create the following folder: FAST_API_MODULE/images/
+
+
+This folder is used to store uploaded patient images.
+
+---
+
+### Add Test Images
+
 For testing, add a few unseen images to:
 FAST_API_MODULE/skin_images/test/malignant/
 FAST_API_MODULE/skin_images/test/benign/
 
+
 These images can be used to validate predictions via the API.
 
-### What the System Does
+---
 
-Upload a skin lesion image
-Run inference using a trained CNN model
-Store the prediction and metadata (persistence)
-Display results on the dashboard for later review
-Separate modules available for Admin, Doctor, Patients, Lab Technitiens 
+## What the System Does
 
-### User Modules
+- Upload a skin lesion image
+- Run inference using a trained CNN model
+- Store predictions and metadata (**persistence**)
+- Display results on the dashboard for later review
+- Provides **role-based access** through separate user modules
 
-Admin – manages users, system settings, and overall monitoring
-Doctor – manage consultation, reviews patient cases and model predictions
-Patients – book consultation, upload images
-Lab Technicians – handles lab results
+---
+
+## User Modules
+
+The application includes separate modules for different user roles:
+
+### Admin
+- Manages users
+- Controls system settings
+- Monitors overall system activity
+
+### Doctor
+- Manages consultations
+- Reviews patient cases
+- Reviews model predictions
+
+### Patients
+- Book consultations
+- Upload skin lesion images
+- View prediction results
+
+### Lab Technicians
+- Handle lab results
+- Manage test-related data
+
+---
+
+## License & Usage
+
+This project is shared for **learning, academic, and portfolio purposes only**.  
+It is **not approved for clinical or commercial use**.
+
+
+
+
+
